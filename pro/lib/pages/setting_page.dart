@@ -37,7 +37,7 @@ class SettingPage extends StatelessWidget {
                 value: Provider.of<Themeprovider>(context, listen: false)
                     .isDarMode,
               ),
-            )
+            ),
           ],
         )
         //Block User Tile

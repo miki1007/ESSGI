@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pro/component/my_drawer_tile.dart';
+import 'package:pro/pages/profile_page.dart';
 import 'package:pro/pages/setting_page.dart';
 import 'package:pro/services/Auth/auth_services.dart';
 
@@ -53,18 +54,31 @@ class MyDrawer extends StatelessWidget {
               ),
               //home list tile
               MyDrawerTile(
-                title: 'Home',
+                title: 'H o m e',
                 icon: Icons.home,
                 onTap: () {
                   //pop menu navuaget to the home page since we are in the home page
                   Navigator.pop(context);
                 },
               ),
+              MyDrawerTile(
+                  title: "p r o f i l e",
+                  icon: Icons.person,
+                  onTap: () {
+                    //pop menu drawer
+                    Navigator.pop(context);
+                    //Navigate to the profile page
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ProfilePage(uid: _auth.getCurrentUid())));
+                  }),
 
               //profile list tile
               MyDrawerTile(
-                  title: 'Setting',
-                  icon: Icons.person,
+                  title: 'S e t t i n g',
+                  icon: Icons.settings,
                   onTap: () {
                     //Pop menu darwer
                     Navigator.pop(context);

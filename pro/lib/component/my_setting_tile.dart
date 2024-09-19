@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 class MySettingTile extends StatelessWidget {
   final String title;
   final Widget action;
+  //make the mode to required
   const MySettingTile({super.key, required this.action, required this.title});
   //BUILD UI
   @override

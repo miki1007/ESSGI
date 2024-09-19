@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pro/component/my_loading_circle.dart';
 import 'package:pro/services/Auth/auth_services.dart';
+import 'package:pro/services/database/database_service.dart';
 
 import '../component/my_button.dart';
 import '../component/my_text_field.dart';
@@ -28,10 +29,11 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterState extends State<RegisterPage> {
-//access the auth service
+//access the auth & db service
   final _auth = AuthService();
+  final _db = DatabaseService();
 
-  final TextEditingController namelController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController pwlController = TextEditingController();
   final TextEditingController confirmPwController = TextEditingController();
@@ -47,9 +49,10 @@ class _RegisterState extends State<RegisterPage> {
         await _auth.registerEmailPassword(
             emailController.text, pwlController.text);
         //finished loading...
-        if (mounted) {
-          hideLoadingCircle(context);
-        }
+        if (mounted) hideLoadingCircle(context);
+        //once registered, create and save user profile in the database
+        await _db.saveUserInfoInFirebase(
+            name: nameController.text, email: emailController.text);
       } catch (e) {
         //finished loading...
         if (mounted) {
@@ -110,7 +113,7 @@ class _RegisterState extends State<RegisterPage> {
                   ),
                   //name text field
                   MyTextField(
-                      controller: namelController,
+                      controller: nameController,
                       hintText: "Enter name",
                       obscuretext: false),
                   const SizedBox(
