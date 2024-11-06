@@ -59,7 +59,7 @@ class TicketCard extends StatelessWidget {
               // Add more information here (description, status, etc.)
 
               const SizedBox(height: 20),
-              Text(ticket.assignedTo),
+              Text('Assigned To :${ticket.assignedTo}'),
               const SizedBox(height: 20),
 
               // Row for status and any other actions

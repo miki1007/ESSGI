@@ -5,31 +5,44 @@ import 'package:pro/component/my_setting_tile.dart';
 import 'package:pro/pages/app_user_list.dart';
 import 'package:pro/theme/themeProvider.dart';
 import 'package:provider/provider.dart';
-/*
-   SETTING PAGE
-
-   Dark Mode
-   Blocked User
-   Account Setting
- */
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
-  //BUILD UI
+
   @override
   Widget build(BuildContext context) {
-    //SACFFOLD
     return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        //App Bar
-        appBar: AppBar(
-          title: Center(child: Text('S e t t i n g ')),
-          foregroundColor: Theme.of(context).colorScheme.primary,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        title: const Center(
+          child: Text(
+            'S e t t i n g ',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
-        //Body
-        body: Column(
+        backgroundColor:
+            Colors.transparent, // Make AppBar background transparent
+        elevation: 0,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Theme.of(context).colorScheme.primary.withOpacity(0.8),
+              Theme.of(context).colorScheme.secondary.withOpacity(0.8),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Column(
           children: [
-            //Dark Mode Tile
+            const SizedBox(height: 100), // Space for AppBar overlap
+            // Dark Mode Tile
             MySettingTile(
               title: 'Dark Mode',
               action: CupertinoSwitch(
@@ -40,9 +53,10 @@ class SettingPage extends StatelessWidget {
                     .isDarMode,
               ),
             ),
-            const SizedBox(height: 5),
+            const SizedBox(height: 20),
+            // Manage Users Button
             Padding(
-              padding: const EdgeInsets.all(25.0),
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: MyButton(
                 text: 'Manage Users',
                 onTap: () {
@@ -53,12 +67,9 @@ class SettingPage extends StatelessWidget {
                 },
               ),
             ),
-            const SizedBox(height: 5),
           ],
-        )
-        //Block User Tile
-        //Account Setting Tile
-
-        );
+        ),
+      ),
+    );
   }
 }

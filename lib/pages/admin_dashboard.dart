@@ -130,6 +130,7 @@ class _HomePageState extends State<HomePage> {
   Widget _buildSearchResults() {
     return _searchResults.isNotEmpty
         ? ListView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             itemCount: _searchResults.length,
             itemBuilder: (context, index) {
               var ticketData =
@@ -137,20 +138,60 @@ class _HomePageState extends State<HomePage> {
               var ticketID = _searchResults[index].id;
               var ticket = MaintenanceTicket.fromMap(ticketData, ticketID);
 
-              return ListTile(
-                title: Text(ticket.title),
-                subtitle: Text(ticket.assignedTo),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TicketDetailPage(ticket: ticket),
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6.0),
+                child: Card(
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  color: Theme.of(context)
+                      .colorScheme
+                      .surface, // Card background color
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.all(16),
+                    title: Text(
+                      ticket.title,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                     ),
-                  );
-                },
+                    subtitle: Text(
+                      "Assigned to: ${ticket.assignedTo}",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withOpacity(0.7),
+                      ),
+                    ),
+                    trailing: Icon(Icons.arrow_forward_ios,
+                        color: Theme.of(context).colorScheme.primary),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              TicketDetailPage(ticket: ticket),
+                        ),
+                      );
+                    },
+                  ),
+                ),
               );
             },
           )
-        : const Center(child: Text('No results found'));
+        : const Center(
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                'No results found',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              ),
+            ),
+          );
   }
 }
