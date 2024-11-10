@@ -1,0 +1,19 @@
+buildscript {
+   repositories {
+    mavenCentral() // or jcenter() for older setups
+    google()
+    maven { url 'https://repo.maven.apache.org/maven2' }
+}
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.1.2'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.21'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()  // Ensure this is present
+    }
+}
